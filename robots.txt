@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://houseoflanguage.com.au/sitemap.xml

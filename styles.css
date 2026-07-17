@@ -9,8 +9,8 @@
   --teal-deep:  #1F5C57;
   --teal-mid:   #3E8079;
   --teal-pale:  #E4EDEA;
-  --gold:       #C98A32;
-  --gold-soft:  #F3E1BE;
+  --gold:       #6F9F9A;
+  --gold-soft:  #DCEBE8;
   --sage:       #A9BFAE;
   --line:       #DAD9D0;
 
@@ -70,7 +70,7 @@ button{ font-family:inherit; }
 }
 .nav{
   display:flex; align-items:center; justify-content:space-between;
-  padding:18px 0;
+  padding:12px 0;
 }
 .brand{
   display:flex; align-items:center; gap:10px;
@@ -201,7 +201,7 @@ section{ padding:64px 0; }
 .cta-band h2{ color:#fff; margin-bottom:8px; }
 .cta-band p{ color:rgba(255,255,255,.8); margin-bottom:0; }
 .cta-band .btn-primary{ background:var(--gold); }
-.cta-band .btn-primary:hover{ background:#b87c29; }
+.cta-band .btn-primary:hover{ background:#5E8D88; }
 
 /* ---------- Contact / form ---------- */
 .contact-grid{ display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:start; }
@@ -240,3 +240,27 @@ footer{ background:var(--ink); color:rgba(255,255,255,.75); padding:52px 0 26px;
 /* ---------- Utility ---------- */
 .mt-0{ margin-top:0; }
 .center{ text-align:center; }
+
+
+/* ---------- Brand refinements ---------- */
+.header-logo{ height:48px; width:auto; display:block; }
+.hero-brand{
+  min-height:260px; padding:38px; border-radius:28px;
+  background:linear-gradient(145deg,var(--card),var(--teal-pale));
+  border:1px solid var(--line); box-shadow:var(--shadow);
+  display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center;
+}
+.hero-brand img{ width:min(100%,360px); height:auto; }
+.hero-brand span{ margin-top:18px; color:var(--teal-deep); font-weight:600; letter-spacing:.04em; }
+.service-icon{
+  width:64px; height:64px; border-radius:16px; background:var(--teal-pale);
+  display:flex; align-items:center; justify-content:center; margin-bottom:18px;
+}
+.service-icon svg{ width:36px; height:36px; fill:none; stroke:var(--teal-deep); stroke-width:2.4; stroke-linecap:round; stroke-linejoin:round; }
+.social-row svg{ width:17px; height:17px; fill:currentColor; }
+.social-row a{ color:#fff; }
+@media (max-width:860px){
+  .header-logo{ height:42px; }
+  .hero .wrap{ grid-template-columns:1fr; }
+  .hero-brand{ min-height:210px; padding:28px; }
+}
