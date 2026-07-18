@@ -214,6 +214,18 @@ section{ padding:64px 0; }
 }
 .field input:focus, .field textarea:focus, .field select:focus{ border-color:var(--teal-mid); outline:none; }
 .form-note{ font-size:13px; color:var(--ink-soft); margin-top:10px; }
+.form-note.is-error{ color:#B3261E; }
+
+.form-confirmation{
+  background:var(--card); border:1px solid var(--line); border-radius:var(--radius);
+  padding:44px 36px; text-align:center;
+}
+.form-confirmation .confirm-icon{
+  width:56px; height:56px; border-radius:50%; background:var(--teal-pale); color:var(--teal-deep);
+  display:flex; align-items:center; justify-content:center; margin:0 auto 18px;
+}
+.form-confirmation h3{ color:var(--teal-deep); font-size:22px; margin-bottom:8px; }
+.form-confirmation p{ margin-bottom:0; }
 .contact-info-card{ background:var(--teal-pale); border-radius:var(--radius); padding:32px; }
 .contact-info-card h3{ color:var(--teal-deep); }
 .contact-info-row{ display:flex; gap:12px; align-items:flex-start; margin-bottom:18px; }

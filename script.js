@@ -55,15 +55,45 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Contact form — basic client-side handling (see README for form backend setup)
+  // Contact form — submits to Formspree via fetch, then replaces the form with a confirmation panel
   const form = document.querySelector('#contact-form');
   if (form) {
-    form.addEventListener('submit', (e) => {
+    const status = document.querySelector('#form-status');
+    const submitBtn = form.querySelector('button[type="submit"]');
+    const originalBtnText = submitBtn ? submitBtn.textContent : 'Submit';
+
+    form.addEventListener('submit', async (e) => {
       e.preventDefault();
-      const status = document.querySelector('#form-status');
-      status.textContent = "Thanks for reaching out! We'll be in touch shortly.";
-      status.style.color = '#1F5C57';
-      form.reset();
+      if (status) { status.textContent = ''; status.classList.remove('is-error'); }
+      if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Sending…'; }
+
+      try {
+        const response = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { 'Accept': 'application/json' }
+        });
+
+        if (response.ok) {
+          const confirmation = document.createElement('div');
+          confirmation.className = 'form-confirmation';
+          confirmation.innerHTML = `
+            <div class="confirm-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+            </div>
+            <h3>Message sent</h3>
+            <p>Thanks for reaching out — we'll be in touch shortly.</p>`;
+          form.replaceWith(confirmation);
+        } else {
+          throw new Error('Form submission failed');
+        }
+      } catch (err) {
+        if (status) {
+          status.textContent = "Something went wrong sending your message — please try again, or email us directly at hello@houseoflanguage.com.au.";
+          status.classList.add('is-error');
+        }
+        if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = originalBtnText; }
+      }
     });
   }
 
