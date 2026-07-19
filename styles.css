@@ -638,8 +638,50 @@ html.js body.page-leaving{
   body.menu-open .site-header{
     position:static;
   }
+  /* Fix: releasing the header's sticky positioning (above) also removed
+     its stacking-context elevation, so the mobile menu panel lost its
+     place above the page content and hero text showed through it.
+     Giving the menu its own explicit z-index restores it regardless of
+     the header's positioning state. */
   .nav-links{
     height:100vh;
+    z-index:200;
+  }
+
+  /* Fix: this site has a global rule - .site-header, main, section,
+     footer { position:relative; z-index:1 } - originally added so page
+     content layers above the decorative background circles. But it
+     means literally every <section> on every page creates its own
+     stacking context, which was trapping the mobile menu underneath
+     page content everywhere, not just on the homepage. Neutralising
+     it only while the menu is open fixes every page at once. */
+  body.menu-open main,
+  body.menu-open section,
+  body.menu-open footer{
+    position:static;
+    z-index:auto;
+  }
+
+  /* Fix: nearly every section's content is tagged with a .reveal class
+     for the scroll-in animation, which sets a transition on transform.
+     Browsers promote elements with a transform transition to their own
+     compositing layer, which behaves like a stacking context - this was
+     trapping the entire page content above the mobile menu on every
+     page, regardless of the menu's z-index. Neutralising the transition
+     only while the menu is open removes that trap everywhere at once. */
+  body.menu-open .reveal{
+    transition:none;
+    transform:none;
+  }
+  .hero .wrap{
+    display:flex;
+    flex-direction:column;
+  }
+  .hero .wrap > div:first-child{
+    order:2;
+  }
+  .hero-brand{
+    order:1;
   }
 }
 
