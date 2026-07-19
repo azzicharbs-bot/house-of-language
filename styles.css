@@ -615,3 +615,31 @@ html.js body.page-leaving{
     transition:none;
   }
 }
+
+/* ---------- Mobile fixes: hero collapse + menu overlay ---------- */
+@media (max-width:860px){
+  /* Fix: an unconditional desktop rule declared later in this file was
+     overriding the mobile single-column layout, collapsing the hero
+     photo down to ~2px wide. This re-asserts the single column as the
+     last word in the cascade for mobile widths. */
+  .hero .wrap{
+    grid-template-columns:1fr;
+  }
+  .hero-brand{
+    width:100%;
+  }
+
+  /* Fix: .site-header uses position:sticky, which establishes a new
+     containing block for position:fixed descendants. That trapped the
+     mobile nav-links panel inside the header's own (short) box instead
+     of the full viewport, so it rendered as a ~60px sliver instead of
+     covering the screen. Dropping the header to static positioning
+     while the menu is open releases it back to the viewport. */
+  body.menu-open .site-header{
+    position:static;
+  }
+  .nav-links{
+    height:100vh;
+  }
+}
+
